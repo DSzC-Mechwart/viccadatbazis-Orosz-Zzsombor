@@ -1,0 +1,90 @@
+﻿@page
+@model ViccAdatbazis.Pages.ViccekModel
+@{
+    ViewData["Title"] = "Programming Jokes";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .joke-container {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .buttons {
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        .rating {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>@ViewData["Title"]</h1>
+    <div id="jokes-list">
+        @if (Model.Jokes != null && Model.Jokes.Count > 0)
+        {
+            foreach (var joke in Model.Jokes)
+            {
+                <div class="joke-container">
+                    <p>@joke.Tartalom</p>
+                    <p><strong>Uploaded by:</strong> @joke.Feltolto</p>
+
+                    <div class="rating">
+                        Likes: @joke.Tetszik | Dislikes: @joke.NemTetszik
+                    </div>
+
+                    <div class="buttons">
+                        <button onclick="likeJoke(@joke.Id)">Like</button>
+                        <button onclick="dislikeJoke(@joke.Id)">Dislike</button>
+                    </div>
+                    <p id="result-@joke.Id"></p>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No jokes available.</p>
+        }
+    </div>
+
+    <script>
+        // Function to handle like action
+        function likeJoke(jokeId) {
+            // Here you would typically make an API call to your backend to like the joke
+            alert("You liked joke ID: " + jokeId);
+            // Optionally update the UI to reflect the like without a page refresh
+        }
+
+        // Function to handle dislike action
+        function dislikeJoke(jokeId) {
+            // Here you would typically make an API call to your backend to dislike the joke
+            alert("You disliked joke ID: " + jokeId);
+            // Optionally update the UI to reflect the dislike without a page refresh
+        }
+    </script>
+
+</body>
+</html>
